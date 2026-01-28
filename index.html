@@ -1,83 +1,105 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="format-detection" content="telephone=no" />
-  <title>업소용의 모든 것</title>
-  <style>
-    :root {
-      --pad: 16px;
-      --radius: 18px;
-      --border: #e6e6e6;
-      --text: #111;
-      --muted: #666;
-      --bg: #fff;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    .wrap {
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-    .card {
-      width: min(520px, 100%);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.06);
-    }
-    .addr {
-      font-size: 18px;
-      line-height: 1.4;
-      margin: 0 0 14px 0;
-      word-break: keep-all;
-    }
-    .btns {
-      display: grid;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    a.btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      height: 54px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--text);
-      background: #fafafa;
-    }
-    a.btn:active { transform: translateY(1px); }
-    .hint {
-      margin: 14px 0 0 0;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <section class="card" aria-label="Navigation options">
-      <p class="addr">경기도 광명시 사들로 45-6</p>
-      <div class="btns">
-        <a class="btn" href="https://tmap.life/0b2a1271" rel="noopener" target="_blank">티맵</a>
-        <a class="btn" href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6" rel="noopener" target="_blank">카카오</a>
-        <a class="btn" href="https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6" rel="noopener" target="_blank">네이버지도</a>
+import React, { useState } from "react"
+
+function ImageWithFallback(props: {
+  src: string
+  alt: string
+  className?: string
+  style?: React.CSSProperties
+}) {
+  const { src, alt, className, style, ...rest } = props
+  const [didError, setDidError] = useState(false)
+
+  return didError ? (
+    <div
+      className={`inline-block bg-gray-100 text-center align-middle ${
+        className ?? ""
+      }`}
+      style={style}
+    >
+      <div className="flex items-center justify-center w-full h-full">
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iODgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIzLjciPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iNiIvPjxwYXRoIGQ9Im0xNiA1OCAxNi0xOCAzMiAzMiIvPjxjaXJjbGUgY3g9IjUzIiBjeT0iMzUiIHI9IjciLz48L3N2Zz4KCg=="
+          alt="Error loading image"
+          {...rest}
+          data-original-url={src}
+        />
       </div>
-      <p class="hint">사용하시는 지도/내비를 선택하세요.</p>
-    </section>
-  </main>
-</body>
-</html>
+    </div>
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      style={style}
+      onError={() => setDidError(true)}
+      {...rest}
+    />
+  )
+}
+
+const address = "경기도 광명시 사들로 45-6 / 02-2060-9441"
+
+// Split into address and phone for two-line display
+const [addrLine, phoneLine] = address.split(" / ")
+
+const links = [
+  {
+    name: "티맵",
+    href: "https://tmap.life/0b2a1271",
+    logo: "https://daehan5211.speedgabia.com/dayeong/tmap.png"
+  },
+  {
+    name: "카카오내비",
+    href:
+      "https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6",
+    logo: "https://daehan5211.speedgabia.com/dayeong/kakaomap.png",
+  },
+  {
+    name: "네이버지도",
+    href:
+      "https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6",
+    logo: "https://daehan5211.speedgabia.com/dayeong/navermap.png",
+  },
+]
+export default function NavigationCard() {
+  return (
+    <div className="min-h-[100svh] grid place-items-center p-6 bg-white text-gray-900">
+      <section
+        className="w-full max-w-[520px] border border-gray-200 rounded-3xl p-6 shadow-lg"
+        aria-label="Navigation options"
+      >
+        <h1 className="font-extrabold text-2xl md:text-3xl text-center mb-1 tracking-tight leading-tight">
+          <span className="text-red-600 text-3xl md:text-4xl">업소용</span>
+          <span className="font-extrabold">의 모든 것</span>
+        </h1>
+        <p className="text-2xl md:text-3xl font-bold leading-tight mb-1 text-center break-keep">
+          {phoneLine}
+        </p>
+        <p className="text-lg md:text-xl leading-tight mb-4 text-center break-keep">
+          {addrLine}
+        </p>
+        <p className="mb-3 text-xs text-gray-500 leading-relaxed text-center">
+          사용하시는 지도/내비를 선택하세요.
+        </p>
+        <div className="grid gap-3">
+          {links.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              target="_blank"
+              rel="noopener"
+              className="flex items-center gap-2 justify-center h-14 rounded-[18px] border border-gray-200 font-bold text-base bg-gray-50 active:translate-y-px"
+            >
+              <ImageWithFallback
+                src={link.logo}
+                alt={`${link.name} 로고`}
+                className="w-6 h-6 object-contain"
+              />
+              {link.name}
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
