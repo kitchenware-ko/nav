@@ -1,105 +1,167 @@
-import React, { useState } from "react"
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>경기도 광명시 사들로 45-6</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --shadow:0 12px 40px rgba(0,0,0,.08);
+      --radius:24px;
+      --btn-radius:18px;
+      --btn-bg:#f9fafb;
+      --btn-bg-hover:#f3f4f6;
+      --accent:#dc2626;
+      --maxw:520px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+    .card{
+      width:min(var(--maxw),100%);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
+    .headline{
+      text-align:center;
+      margin:0 0 10px 0;
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .headline .accent{
+      color:var(--accent);
+      font-weight:900;
+      font-size:clamp(28px, 4.5vw, 40px);
+    }
+    .headline .rest{
+      font-weight:900;
+      font-size:clamp(24px, 4vw, 36px);
+    }
+    .phone{
+      margin:0;
+      text-align:center;
+      font-weight:800;
+      font-size:clamp(26px, 4.5vw, 40px);
+      letter-spacing:-.02em;
+      line-height:1.15;
+      word-break:keep-all;
+    }
+    .addr{
+      margin:6px 0 14px 0;
+      text-align:center;
+      font-size:clamp(18px, 2.8vw, 22px);
+      line-height:1.25;
+      color:var(--text);
+      word-break:keep-all;
+    }
+    .hint{
+      margin:0 0 14px 0;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.4;
+    }
+    .btns{
+      display:grid;
+      gap:12px;
+      margin-top:4px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      height:56px;
+      border-radius:var(--btn-radius);
+      border:1px solid var(--border);
+      background:var(--btn-bg);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:800;
+      font-size:16px;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .05s ease, background .15s ease;
+    }
+    .btn:hover{background:var(--btn-bg-hover)}
+    .btn:active{transform:translateY(1px)}
+    .logo{
+      width:24px;
+      height:24px;
+      object-fit:contain;
+      display:block;
+    }
+    .logo-fallback{
+      width:24px;
+      height:24px;
+      border-radius:6px;
+      background:#e5e7eb;
+      display:none;
+    }
+    .btn[data-img-error="1"] .logo{display:none}
+    .btn[data-img-error="1"] .logo-fallback{display:block}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card" aria-label="navigation">
+      <h1 class="headline" aria-label="headline">
+        <span class="accent">업소용</span><span class="rest">의 모든 것</span>
+      </h1>
 
-function ImageWithFallback(props: {
-  src: string
-  alt: string
-  className?: string
-  style?: React.CSSProperties
-}) {
-  const { src, alt, className, style, ...rest } = props
-  const [didError, setDidError] = useState(false)
+      <p class="phone">02-2060-9441</p>
+      <p class="addr">경기도 광명시 사들로 45-6</p>
+      <p class="hint">사용하시는 지도/내비를 선택하세요.</p>
 
-  return didError ? (
-    <div
-      className={`inline-block bg-gray-100 text-center align-middle ${
-        className ?? ""
-      }`}
-      style={style}
-    >
-      <div className="flex items-center justify-center w-full h-full">
-        <img
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iODgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIzLjciPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iNiIvPjxwYXRoIGQ9Im0xNiA1OCAxNi0xOCAzMiAzMiIvPjxjaXJjbGUgY3g9IjUzIiBjeT0iMzUiIHI9IjciLz48L3N2Zz4KCg=="
-          alt="Error loading image"
-          {...rest}
-          data-original-url={src}
-        />
+      <div class="btns" role="list">
+        <a class="btn" role="listitem" href="https://tmap.life/0b2a1271" target="_blank" rel="noopener">
+          <img class="logo" src="https://daehan5211.speedgabia.com/dayeong/tmap.png" alt="티맵 로고" loading="lazy" decoding="async" />
+          <span>티맵</span>
+          <span class="logo-fallback" aria-hidden="true"></span>
+        </a>
+
+        <a class="btn" role="listitem" href="https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6" target="_blank" rel="noopener">
+          <img class="logo" src="https://daehan5211.speedgabia.com/dayeong/kakaomap.png" alt="카카오내비 로고" loading="lazy" decoding="async" />
+          <span>카카오내비</span>
+          <span class="logo-fallback" aria-hidden="true"></span>
+        </a>
+
+        <a class="btn" role="listitem" href="https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6" target="_blank" rel="noopener">
+          <img class="logo" src="https://daehan5211.speedgabia.com/dayeong/navermap.png" alt="네이버지도 로고" loading="lazy" decoding="async" />
+          <span>네이버지도</span>
+          <span class="logo-fallback" aria-hidden="true"></span>
+        </a>
       </div>
-    </div>
-  ) : (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      style={style}
-      onError={() => setDidError(true)}
-      {...rest}
-    />
-  )
-}
+    </section>
+  </main>
 
-const address = "경기도 광명시 사들로 45-6 / 02-2060-9441"
-
-// Split into address and phone for two-line display
-const [addrLine, phoneLine] = address.split(" / ")
-
-const links = [
-  {
-    name: "티맵",
-    href: "https://tmap.life/0b2a1271",
-    logo: "https://daehan5211.speedgabia.com/dayeong/tmap.png"
-  },
-  {
-    name: "카카오내비",
-    href:
-      "https://map.kakao.com/link/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6",
-    logo: "https://daehan5211.speedgabia.com/dayeong/kakaomap.png",
-  },
-  {
-    name: "네이버지도",
-    href:
-      "https://map.naver.com/v5/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B4%91%EB%AA%85%EC%8B%9C%20%EC%82%AC%EB%93%A4%EB%A1%9C%2045-6",
-    logo: "https://daehan5211.speedgabia.com/dayeong/navermap.png",
-  },
-]
-export default function NavigationCard() {
-  return (
-    <div className="min-h-[100svh] grid place-items-center p-6 bg-white text-gray-900">
-      <section
-        className="w-full max-w-[520px] border border-gray-200 rounded-3xl p-6 shadow-lg"
-        aria-label="Navigation options"
-      >
-        <h1 className="font-extrabold text-2xl md:text-3xl text-center mb-1 tracking-tight leading-tight">
-          <span className="text-red-600 text-3xl md:text-4xl">업소용</span>
-          <span className="font-extrabold">의 모든 것</span>
-        </h1>
-        <p className="text-2xl md:text-3xl font-bold leading-tight mb-1 text-center break-keep">
-          {phoneLine}
-        </p>
-        <p className="text-lg md:text-xl leading-tight mb-4 text-center break-keep">
-          {addrLine}
-        </p>
-        <p className="mb-3 text-xs text-gray-500 leading-relaxed text-center">
-          사용하시는 지도/내비를 선택하세요.
-        </p>
-        <div className="grid gap-3">
-          {links.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              target="_blank"
-              rel="noopener"
-              className="flex items-center gap-2 justify-center h-14 rounded-[18px] border border-gray-200 font-bold text-base bg-gray-50 active:translate-y-px"
-            >
-              <ImageWithFallback
-                src={link.logo}
-                alt={`${link.name} 로고`}
-                className="w-6 h-6 object-contain"
-              />
-              {link.name}
-            </a>
-          ))}
-        </div>
-      </section>
-    </div>
-  )
-}
+  <script>
+    // If logos fail to load, show a neutral placeholder block
+    document.querySelectorAll('.btn img.logo').forEach(function(img){
+      img.addEventListener('error', function(){
+        var btn = img.closest('.btn');
+        if(btn) btn.setAttribute('data-img-error','1');
+      });
+    });
+  </script>
+</body>
+</html>
